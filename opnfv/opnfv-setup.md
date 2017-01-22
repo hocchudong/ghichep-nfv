@@ -39,7 +39,41 @@
 ## <a name="steps"></a>3. Các bước cài đặt
 ### 3.1 Chuẩn bị
 - Cài đặt webvirtmgr (bao gồm cả môi trường kvm và giao diện đồ họa trên trình duyệt) theo hướng dẫn [tại đây](https://github.com/retspen/webvirtmgr).
-- Thiết lập các dải mạng:
+- Thiết lập các network:
+  - Thêm các bridge cần thiết như sau (chú ý: card eno1 của server là card kết nối internet):
+    - Bridge external:
+      ```sh
+      brctl addbr br-ex 
+      brctl addif br-ex eno1
+      ifconfig eno1 0
+      ifconfig br-ex 192.168.2.50/24
+      route add default gw 192.168.2.1
+      ```
+    - Lưu lại cấu hình vào file `/etc/network/interfaces` với nội dung tương tự như sau:
+      ```sh
+      # PUBLIC NETWORK
+      auto br-ex
+      iface br-ex inet static
+          bridge_ports eno1 
+              address 192.168.2.50/24
+      	gateway 192.168.2.1
+      	dns-nameservers 8.8.8.8
+      
+      iface eno1 inet manual
+        up ifconfig $IFACE 0.0.0.0 up
+        up ip link set $IFACE promisc on
+        down ip link set $IFACE promisc off
+        down ifconfig $IFACE down
+      ```
+
+  - Tải các tệp định nghĩa network [ở đây](https://github.com/thaihust/ghichep-nfv/tree/master/opnfv/opnfv-setup-network-config).
+  - Thực hiện tạo các network như sau, sau đây là mẫu tạo network ADMIN, các network khác tạo tương tự:
+    ```sh
+    virsh net-define 1_pxe-net.xml
+    virsh net-start admin-net
+    virsh net-autostart admin-net
+    ```
+    *Chú ý: **1_pxe-net.xml** là tên tệp định nghĩa network, **admin-net** là tên network chỉ định trong section **\<name\>\</name\>** của tệp đó.*
 
 
 
