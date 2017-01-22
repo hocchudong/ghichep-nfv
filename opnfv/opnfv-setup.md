@@ -74,8 +74,8 @@
     virsh net-start admin-net
     virsh net-autostart admin-net
     ```
-    
-    *Chú ý: **1_pxe-net.xml** là tên tệp định nghĩa network, **admin-net** là tên network chỉ định trong section **\<name\>\</name\>** của tệp đó.*
+
+    *Chú ý: __1_pxe-net.xml__ là tên tệp định nghĩa network, __admin-net__ là tên network chỉ định trong section __\<name\>\</name\>__ của tệp đó.*
 
 
 
