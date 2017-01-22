@@ -42,6 +42,7 @@
 - Thiết lập các network:
   - Thêm các bridge cần thiết như sau (chú ý: card eno1 của server là card kết nối internet):
     - Bridge external:
+
       ```sh
       brctl addbr br-ex 
       brctl addif br-ex eno1
@@ -49,7 +50,9 @@
       ifconfig br-ex 192.168.2.50/24
       route add default gw 192.168.2.1
       ```
+
     - Lưu lại cấu hình vào file `/etc/network/interfaces` với nội dung tương tự như sau:
+     
       ```sh
       # PUBLIC NETWORK
       auto br-ex
