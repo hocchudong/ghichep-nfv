@@ -38,7 +38,7 @@
 
 ## <a name="steps"></a>3. Các bước cài đặt
 ### 3.1 Chuẩn bị
-- Cài đặt webvirtmgr (bao gồm cả môi trường kvm và giao diện đồ họa trên trình duyệt) theo hướng dẫn [tại đây](https://github.com/retspen/webvirtmgr).
+- Cài webvirtmgr (bao gồm cả môi trường kvm và giao diện đồ họa trên trình duyệt) lên server theo hướng dẫn [tại đây](https://github.com/retspen/webvirtmgr).
 - Thiết lập các network:
   - Thêm các bridge cần thiết như sau (chú ý: card eno1 của server là card kết nối internet):
     - Bridge external:
@@ -73,13 +73,14 @@
   - Thực hiện tạo các network như sau, sau đây là mẫu tạo network ADMIN, các network khác tạo tương tự:
 
     ```sh
-    virsh net-define 1_pxe-net.xml
+    virsh net-define 1_admin-net.xml
     virsh net-start admin-net
     virsh net-autostart admin-net
     ```
 
-    *Chú ý: __1_pxe-net.xml__ là tên tệp định nghĩa network, __admin-net__ là tên network chỉ định trong section __\<name\>\</name\>__ của tệp đó.*
+    *Chú ý: __1_admin-net.xml__ là tên tệp định nghĩa network, __admin-net__ là tên network chỉ định trong section __\<name\>\</name\>__ của tệp đó.*
 
+### 3.2 
 
 
 ## <a name="verify"></a>4. Kiểm tra chức năng
