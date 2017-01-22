@@ -68,11 +68,13 @@
 
   - Tải các tệp định nghĩa network [ở đây](https://github.com/thaihust/ghichep-nfv/tree/master/opnfv/opnfv-setup-network-config).
   - Thực hiện tạo các network như sau, sau đây là mẫu tạo network ADMIN, các network khác tạo tương tự:
+
     ```sh
     virsh net-define 1_pxe-net.xml
     virsh net-start admin-net
     virsh net-autostart admin-net
     ```
+    
     *Chú ý: **1_pxe-net.xml** là tên tệp định nghĩa network, **admin-net** là tên network chỉ định trong section **\<name\>\</name\>** của tệp đó.*
 
 
