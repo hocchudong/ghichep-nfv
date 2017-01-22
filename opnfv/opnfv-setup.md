@@ -2,7 +2,7 @@
 # Mục lục
 ### [1. Yêu cầu](#pre)
 ### [2. Mô hình cài đặt](#topo)
-### [3. Tiến hành cài đặt](#steps)
+### [3. Các bước cài đặt](#steps)
 ### [4. Kiểm tra chức năng](#verify)
 ### [5. Tham khảo](#ref)
 
@@ -31,12 +31,15 @@
   - **COMPUTE**:
     - Đóng vai trò tương tự như **COMPUTE** node trong OpenStack
     - Cấu hình: 6vCPUs, 6 - 8GB RAM, 80 - 100GB ổ cứng.
-    - Ba hoặc năm card mạng: ADMIN, PUBLIC, STORAGE, MANAGEMENT, PRIVATE.
+    - Ba hoặc năm card mạng: ADMIN, PUBLIC, STORAGE, MANAGEMENT, PRIVATE (DATA NETWORK).
   
 ![OPNFV](http://i.imgur.com/rpT0EB3.png)
 
 
-## <a name="steps"></a>3. Tiến hành cài đặt
+## <a name="steps"></a>3. Các bước cài đặt
+### 3.1 Chuẩn bị
+- Cài đặt webvirtmgr (bao gồm cả môi trường kvm và giao diện đồ họa trên trình duyệt) theo hướng dẫn [tại đây](https://github.com/retspen/webvirtmgr).
+- Thiết lập các dải mạng:
 
 
 
