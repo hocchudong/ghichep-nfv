@@ -247,7 +247,7 @@ Trong đó 1, 2 là id của nodes lấy từ lệnh `fuel nodes`. Kết quả t
 ![deploy](https://github.com/thaihust/ghichep-nfv/blob/master/opnfv/opnfv-setup-images/opnfv/opnfv-gui/opnfv_deploy_1.png?raw=true)
 ![deploy](https://github.com/thaihust/ghichep-nfv/blob/master/opnfv/opnfv-setup-images/opnfv/opnfv-gui/opnfv_deploy_2.png?raw=true)
 
-- Đợi khoảng nửa tiếng tới 45 phút cho tới khi hệ thống deply xong, kết quả thành công sẽ hiển thị tương tự như sau:
+- Đợi khoảng nửa tiếng tới 45 phút cho tới khi hệ thống deploy xong, kết quả thành công sẽ hiển thị tương tự như sau:
 ![success](https://github.com/thaihust/ghichep-nfv/blob/master/opnfv/opnfv-setup-images/opnfv/fuel_deploy_success.png?raw=true)
 
 - Truy cập thử vào horizon của OpenStack (tài khoản `admin/admin`):
