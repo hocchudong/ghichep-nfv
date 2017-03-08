@@ -54,5 +54,6 @@ Project này cũng cung cập một driver API chung để hỗ trợ các drive
 
 - __Flow classifier__: Tập hợp các thuộc tính định nghĩa nên flow, gồm cả các thuộc tính về nguồn và đích của flow. 
 
+## 4. Tham khảo
 
-
+- [OpenStack Networking SFC document](https://docs.openstack.org/ocata/networking-guide/config-sfc.html)
