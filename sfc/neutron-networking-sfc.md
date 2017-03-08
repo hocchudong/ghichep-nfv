@@ -18,7 +18,7 @@ Một chuỗi các port (port chain) được coi là một service chain vô h�
 
 Một flow classifier chỉ thuộc về một port chain để tránh việc bối rối khi hệ thống quyết định xem chain nào sẽ xử lý các gói tin. Một port chain có thể gắn với nhiều classifier vì nhiều loại lưu lượng có thể yêu cầu cùng một SFP.
 
-Project networking-sfc là project con của neutron, triển khai port chain plug-in với Open vSwitch driver và SDN Controller drivers ([networking-odl](https://github.com/openstack/networking-odl.git) hoặc [networking-onos](https://github.com/openstack/networking-odl.git)) cho phép tương tác với các SFC provider khác nhau (Open vSwitch agent hoặc SDN Controller như OpenDaylight hoặc ONOS).
+Project networking-sfc là project con của neutron, triển khai port chain plug-in với Open vSwitch driver và SDN Controller drivers ([networking-odl](https://github.com/openstack/networking-odl.git) hoặc [networking-onos](https://github.com/openstack/networking-onos.git)) cho phép tương tác với các SFC provider khác nhau (Open vSwitch agent hoặc SDN Controller như OpenDaylight hoặc ONOS).
 Project này cũng cung cập một driver API chung để hỗ trợ các driver khác nhau đó nhằm cung cấp các giải pháp khác nhau triển khai một SFP.
 
 ![port-chain-plugin](https://docs.openstack.org/ocata/networking-guide/_images/port-chain-architecture-diagram.png)
