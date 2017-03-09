@@ -44,62 +44,64 @@
 
 ## Tacker với networking-sfc
    - Theo mô hình ở trên có thể thấy project Tacker triển khai SFC driver để giao tiếp với port-chain API của project Neutron networking-sfc. Tacker API được cung cấp hỗ trợ các thao tác quản lý các VNFs và tạo VNFFGs.
-   - Port-chain API có thể sử dụng để tạo nên một hay nhiều Network Forwarding Paths trên đồ hình mạng.
-    
-     ### Vấn đề đặt ra
-     - Tacker VNFFG và Neutrong networking-sfc hoạt động ở hai cấp độ trừu tượng khác nhau. Nếu như Neutron networking-sfc tạo nên một SFC bằng việc kết nối một danh sách các neutron ports thì Tacker VNFFG thao tác với các service instance hoặc thậm chí là với service type (ví dụ load balancer, firewall,...).
-     - Để có thể render ra các Networking Forwarding Paths của VNFFG, networking-sfc phải cung cấp khả năng tạo ra SFCs và Classifiers cho Tacker.
-     ### Giải quyết
-     - Networking-sfc driver cuar Tacker sẽ map từ mô tả mức trừu tượng ở VNFFG sang Neutron port, hay port chain. 
-     - NFVO plugin sẽ gửi các yêu cầu thực hiện CRUD (Create, Read, Update, Delete) VNFFG tới networking-sfc driver. Driver này sẽ map các thao tác vận hành đó thành các thao tác CRUD với port-chain và gọi port-chain API của networking SFC port chain plugin.
-     - NFVO plugin cũng giao tiếp với Tacker VNF Manager để thu thập thông tin về các VNF instance và ingress/exgress interfaces nếu VNFFG chỉ mô tả kiểu VNF.
-     - Khả năng mở rộng là tính năng nâng cao trong tương lai của Tacker, tuy nhiên VNF scaling hiện tại đã được hỗ trợ bởi networking-sfc. Nếu VNFM trả lại nhiều VNF instances thì NFVO sẽ lựa chọn một VNF instance để tạo port-pair-group với một port-pair. Khi NFVO plugin hỗ trợ scaling, nó có thể tạo ra một port-pair-group bao gồm tất cả các VNF instances mà VNF Manager trả vể.
+   - Port-chain API có thể sử dụng để tạo nên một hay nhiều Network Forwarding Paths trên đồ hình mạng.    
+     
+     - __Vấn đề đặt ra__
+       - Tacker VNFFG và Neutron networking-sfc hoạt động ở hai cấp độ trừu tượng khác nhau. Nếu như Neutron networking-sfc tạo nên một SFC bằng việc kết nối một danh sách các neutron ports thì Tacker VNFFG thao tác với các service instance hoặc thậm chí là với service type (ví dụ load balancer, firewall,...).
+       - Để có thể render ra các Networking Forwarding Paths của VNFFG, networking-sfc phải cung cấp khả năng tạo ra SFCs và Classifiers cho Tacker.
+     
+     - __Giải quyết__
+       - Networking-sfc driver cuar Tacker sẽ map từ mô tả mức trừu tượng ở VNFFG sang Neutron port, hay port chain. 
+       - NFVO plugin sẽ gửi các yêu cầu thực hiện CRUD (Create, Read, Update, Delete) VNFFG tới networking-sfc driver. Driver này sẽ map các thao tác vận hành đó thành các thao tác CRUD với port-chain và gọi port-chain API của networking SFC port chain plugin.
+       - NFVO plugin cũng giao tiếp với Tacker VNF Manager để thu thập thông tin về các VNF instance và ingress/exgress interfaces nếu VNFFG chỉ mô tả kiểu VNF.
+       - Khả năng mở rộng là tính năng nâng cao trong tương lai của Tacker, tuy nhiên VNF scaling hiện tại đã được hỗ trợ bởi networking-sfc. Nếu VNFM trả lại nhiều VNF instances thì NFVO sẽ lựa chọn một VNF instance để tạo port-pair-group với một port-pair. Khi NFVO plugin hỗ trợ scaling, nó có thể   tạo ra một port-pair-group bao gồm tất cả các VNF instances mà VNF Manager trả vể.
 
-     Networking-sfc driver có những tính năng sau:
-     - Map định nghĩa của VNFFG chain sang định nghĩa của một port-chain trong networking-sfc.
-     - Driver sẽ định dạng lại các thao tác CRUD và gọi port-chain API
-     - Nếu một VNFFG được chỉ định tính chất đối xứng (symmetrical), driver sẽ thiết lập giá trị __symmetric=true__ trong thuộc tính chain parameters.
-     - Map VNFFG classifier thành flow-classifier cho port-chain.
-     - Driver mặc định của Tacker VNFFG là __networking-sfc__
+       Networking-sfc driver có những tính năng sau:
 
-     Tacker NFVO workflow để định nghĩa nên VNFFG như sau:
-     ```sh
-     tacker vnffg-create --name myvnffg --vnfm_mapping VNF1:testVNF2,VNF2:testVNF1
-                    --symmetrical True
-     ```
-     Networking SFC workflow tương ứng sẽ như sau:
-     ```sh
-     neutron port-pair-create --ingress <port-id> --egress <port-id>
-     
-     neutron port-pair-group-create --port-pairs <port-pair-id>
-     
-     neutron flow-classifier-create --protocol tcp --destination-port 80:80
-     
-     neutron port-chain-create --port-pair-group <port-pair-group-id>
-                               --flow-classifier <classifier-id> <name>
-     ```
-     Các thao tác tương ứng từ Tacker VNFFG APIs tới Neutron networking-sfc client sẽ như sau:
-     ```sh
-     +---------------------------------------------------------------------+
-     |   Tacker VNFFG API          |   networking-sfc client CLI           |
-     +-----------------------------+---------------------------------------+
-     |                             |                                       |
-     |       vnffg-create          |   neutron port-pair-create            |
-     |                             |       --ingress [Neutron port]        |
-     |                             |       --egress [Neutron port]         |
-     |                             |                                       |
-     |                             |   neutron port-pair-group-create      |
-     |                             |       --port-pairs [port pair id]     |
-     |                             |                                       |
-     |                             |   neutron flow-classifier-create      |
-     |                             |       [parameters]                    |
-     |                             |                                       |
-     |                             |   neutron port-chain-create           |
-     |                             |       --port-pair-group <id>          |
-     |                             |       --flow-classifier <fc-id>       |
-     |                             |                                       |
-     +-----------------------------+---------------------------------------+
-     ```
+       - Map định nghĩa của VNFFG chain sang định nghĩa của một port-chain trong networking-sfc.
+       - Driver sẽ định dạng lại các thao tác CRUD và gọi port-chain API
+       - Nếu một VNFFG được chỉ định tính chất đối xứng (symmetrical), driver sẽ thiết lập giá trị __symmetric=true__ trong thuộc tính chain parameters.
+       - Map VNFFG classifier thành flow-classifier cho port-chain.
+       - Driver mặc định của Tacker VNFFG là __networking-sfc__
+
+       Tacker NFVO workflow để định nghĩa nên VNFFG như sau:
+       ```sh
+       tacker vnffg-create --name myvnffg --vnfm_mapping VNF1:testVNF2,VNF2:testVNF1
+                      --symmetrical True
+       ```
+       Networking SFC workflow tương ứng sẽ như sau:
+       ```sh
+       neutron port-pair-create --ingress <port-id> --egress <port-id>
+       
+       neutron port-pair-group-create --port-pairs <port-pair-id>
+       
+       neutron flow-classifier-create --protocol tcp --destination-port 80:80
+       
+       neutron port-chain-create --port-pair-group <port-pair-group-id>
+                                 --flow-classifier <classifier-id> <name>
+       ```
+       Các thao tác tương ứng từ Tacker VNFFG APIs tới Neutron networking-sfc client sẽ như sau:
+       ```sh
+       +---------------------------------------------------------------------+
+       |   Tacker VNFFG API          |   networking-sfc client CLI           |
+       +-----------------------------+---------------------------------------+
+       |                             |                                       |
+       |       vnffg-create          |   neutron port-pair-create            |
+       |                             |       --ingress [Neutron port]        |
+       |                             |       --egress [Neutron port]         |
+       |                             |                                       |
+       |                             |   neutron port-pair-group-create      |
+       |                             |       --port-pairs [port pair id]     |
+       |                             |                                       |
+       |                             |   neutron flow-classifier-create      |
+       |                             |       [parameters]                    |
+       |                             |                                       |
+       |                             |   neutron port-chain-create           |
+       |                             |       --port-pair-group <id>          |
+       |                             |       --flow-classifier <fc-id>       |
+       |                             |                                       |
+       +-----------------------------+---------------------------------------+
+       ```
 
 ## Data model
 ...to be continued
