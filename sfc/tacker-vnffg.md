@@ -51,7 +51,7 @@
        - Để có thể render ra các Networking Forwarding Paths của VNFFG, networking-sfc phải cung cấp khả năng tạo ra SFCs và Classifiers cho Tacker.
      
      - __Giải quyết__
-       - Networking-sfc driver cuar Tacker sẽ map từ mô tả mức trừu tượng ở VNFFG sang Neutron port, hay port chain. 
+       - Networking-sfc driver của Tacker sẽ map từ mô tả mức trừu tượng ở VNFFG sang Neutron port, hay port chain. 
        - NFVO plugin sẽ gửi các yêu cầu thực hiện CRUD (Create, Read, Update, Delete) VNFFG tới networking-sfc driver. Driver này sẽ map các thao tác vận hành đó thành các thao tác CRUD với port-chain và gọi port-chain API của networking SFC port chain plugin.
        - NFVO plugin cũng giao tiếp với Tacker VNF Manager để thu thập thông tin về các VNF instance và ingress/exgress interfaces nếu VNFFG chỉ mô tả kiểu VNF.
        - Khả năng mở rộng là tính năng nâng cao trong tương lai của Tacker, tuy nhiên VNF scaling hiện tại đã được hỗ trợ bởi networking-sfc. Nếu VNFM trả lại nhiều VNF instances thì NFVO sẽ lựa chọn một VNF instance để tạo port-pair-group với một port-pair. Khi NFVO plugin hỗ trợ scaling, nó có thể   tạo ra một port-pair-group bao gồm tất cả các VNF instances mà VNF Manager trả vể.
