@@ -11,7 +11,7 @@ Networking-sfc driver cho OpenDaylight Controller được triển khai trong pr
 ## Thiết kế chi tiết
 
 Để đảm bảo tích hợp đầy đủ giữa OpenStack SFC và OpenDaylight, yêu cầu đặt ra là phải có SFC driver cho OpenDaylight. OpenDaylight SFC driver được coi như một lớp đệm giữa OpenStack và OpenDaylight đảm nhận hai tác vụ sau:
-- Chuyển đổi OpenStack SFC classifier API sáng OpenDaylight SFC classifier yang models.
+- Chuyển đổi OpenStack SFC classifier API sang OpenDaylight SFC classifier yang models.
 - Chuyển đổi OpenStack SFC API sang OpenDaylight Neutron Northbound SFC models
 
 SFC providers (NetVirt, Group-based Policy, SFC) trong OpenDaylight lắng nghe các OpenDaylight Neutron Northbound SFC models và chuyển đổi chúng sang yang model của classifier/sfc. Sơ đồ dưới đây mô tả quá trình tích hợp ở mức cao giữa OpenStack và OpenDaylight SFC provider:
@@ -49,3 +49,5 @@ OpenDaylight Controller |                       |
 
 OpenStack SFC APIs là port-pair based API trong khi đó OpenDaylight SFC API dựa trên IETF SFC yang models, do đó có những thao tác chuyển đổi yêu cầu cải thiện API, đảm bảo khả năng tận dụng được các backends providers khác nhau.  
 
+## Tham khảo
+- [Neutron SFC driver](https://docs.openstack.org/developer/networking-odl/specs/sfc-driver.html)
