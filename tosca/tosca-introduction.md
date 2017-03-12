@@ -14,7 +14,7 @@ A distinguishing characteristic of TOSCA is that it was designed to be used with
 
 TOSCA 1.0 was approved in early 2014, a project sponsored by leading companies such as IBM, RedHat, Huawei, and others. Its goal is to provide a platform-agnostic orchestration tool for cloud administrators, one that can describe any topology, workflow, and policy across different cloud implementations:
 
-![tosca](./archive/images_tosca_overview_1.svg)
+![tosca](./archive/images_tosca_overview_1.png)
 
 ## TOSCA SIMPLE PROFILE IN YAML
 
@@ -28,7 +28,7 @@ You can find Draft 05 of the Simple Profile specification [here](http://docs.oas
 
 But it's not all XML and YAML. In order to describe any application in TOSCA terms, you can draw a diagram like this:
 
-![blueprints](./archive/images_tosca_overview_3.svg)
+![blueprints](./archive/images_tosca_overview_3.png)
 
 This diagram has 5 nodes, represented by square boxes. (Here, the term "node" describes components of the topology, not physical or virtual computers.) Every node has a name and a type, the latter of which we'll discuss in a subsequent chapter.
 
