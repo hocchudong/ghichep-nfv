@@ -4,13 +4,13 @@
 
 From a high-level perspective, Cloudify has four components, as seen from the following diagram:
 
-![Cloudify-components](http://link)
+![Cloudify-components](../archive/images_cloudify_overview_1.png)
 
 There must be a client, either in the form of the Cloudify CLI, or a separate GUI. The client communicates with the Cloudify Manager via a RESTful API, and finally, there are the Cloudify Agents, which run on the application VMs.
 
 ## THE CLI
 
-![Cloudify-cli](http://link)
+![Cloudify-cli](../archive/images_cloudify_overview_2.png)
 
 You've already seen that the Cloudify command-line interface, or CLI, can be used to install blueprints locally. It is, however, most useful when it connects to the Cloudify Manager via the RESTful API.
 
@@ -18,7 +18,7 @@ It can be installed on any platform that supports Python, via RPM, pip, or simpl
 
 ## THE RESTFUL API
 
-![Cloudify-rest](http://link)
+![Cloudify-rest](../archive/images_cloudify_overview_3.png)
 
 The next Cloudify component is the API itself. It was designed using REST, lending it simplicity and reliability. (For a high-level overview of REST itself, Wikipedia has a good [article](https://en.wikipedia.org/wiki/Representational_state_transfer) on it.)
 
@@ -26,13 +26,15 @@ The API server is implemented by the Cloudify Manager (covered next), to be cons
 
 ## THE MANAGER 
 
-![cloudify-manager](http://link)
+![cloudify-manager](../archive/images_cloudify_overview_4.png)
 
 While you can use Cloudify to provision resources directly from the CLI, Cloudify Manager should be used to manage production level applications.
 
 It is a dedicated environment that allows users to, among other things, manage application VMs, keep a directory of blueprints and create multiple deployments of each, view an application's topology, search logs, view metrics, and last but not least, manage the agents running on the application VMs.
 
 ## THE AGENTS
+
+![cloudify-agent](../archive/images_cloudify_overview_5.png)
 
 The last major component we'll cover is the Cloudify Agent. It is a service, installed on application hosts, whose main function is to communicate with and execute actions on behalf of Cloudify Manager.
 

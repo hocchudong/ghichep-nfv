@@ -12,7 +12,7 @@ This is where Cloudify comes in: by writing a single blueprint (in TOSCA, of cou
 
 You can see where Cloudify fits in the following diagram; it is the green Orchestration box (the TOSCA blueprint is represented by a blue scroll):
 
-![cloudify position](http://link)
+![cloudify position](../archive/images_cloudify_intro_1.jpg)
 
 ## ORCHESTRATION
 
@@ -20,7 +20,7 @@ How does Cloudify handle orchestration?
 
 You start by writing a blueprint, using TOSCA and YAML, that describes your application in its entirety. This includes, but is not limited to: what infrastructure it'll run on, application code, scripts, monitoring and logging requirements, and last but not least, the topology: on what VMs each of the above will run and how they relate to one another. The following should give you an idea of how Cloudify represents a topology diagram:
 
-![cloudify orchestration](http://link)
+![cloudify orchestration](../archive/images_cloudify_intro_2.png)
 
 When you give Cloudify such a blueprint, it'll be able to manifest your application automatically. It'll not only configure networks and firewalls, launch compute instances, set up configuration management, and actually deploy the app, but Cloudify will do its best to keep it that way - say, if one of the VMs dies.
 

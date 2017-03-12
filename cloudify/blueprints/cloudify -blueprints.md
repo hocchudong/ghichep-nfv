@@ -2,7 +2,7 @@
 
 Let's get down to business and see how Cloudify expects an application to be defined in a blueprint.
 
-![cloudify-blueprint-intro](http://link)
+![cloudify-blueprint-intro](../archive/images_cloudify_blueprints_1.jpg)
 
 ## WHAT'S A CLOUDIFY BLUEPRINT?
 
@@ -51,7 +51,7 @@ node_types:
 
 Cloudify provides a set of built-in node types, all derived from the Root type, as seen in the following diagram:
 
-![blueprint built-in types](http://link)
+![blueprint built-in types](../archive/images_cloudify_blueprints_2.png)
 
 Note that the implementation of these built-in types is usually defined when extending them, or when using them in a blueprint.
 
