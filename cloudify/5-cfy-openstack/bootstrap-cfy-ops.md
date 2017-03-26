@@ -150,4 +150,5 @@ cfy bootstrap --install-plugins -p ~/cloudify-manager-blueprints-3.4.2/openstack
 ```
 
 Waiting for the bootstrap process to complete. It can take about 20-30 minutes!
-Enjoy!
+
+That's all!
