@@ -1,0 +1,9 @@
+<network>
+  <name>storage-net</name>
+  <bridge name='br-storage' />
+  <ip address='10.10.1.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='10.10.1.2' end='10.10.1.29'/>
+    </dhcp>
+  </ip>
+</network>

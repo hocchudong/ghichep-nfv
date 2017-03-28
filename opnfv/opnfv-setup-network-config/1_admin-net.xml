@@ -1,0 +1,6 @@
+<network>
+  <name>admin-net</name>
+  <bridge name="br-admin" />
+  <ip address="10.20.0.1" netmask="255.255.255.0">
+  </ip>
+</network>
